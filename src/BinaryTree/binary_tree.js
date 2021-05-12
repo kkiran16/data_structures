@@ -33,17 +33,36 @@ function insertLeftOrRight(oldNode, newNode){
     }
 }
 
+BinaryTree.prototype.lookup = function(val){
+    let response = {hasValue: false, parentNode: null, currentNode: null}
+    if(this.root === null){
+        return response
+    }
+    
+    const lookupRecursively = function(node, parentNode){
+        if(node.data === val){
+            response = {hasVal: true, parentNode, currentNode: node}
+            return response
+        }
+        if(node.data > val){
+            lookupRecursively(node.leftNode, node)
+        }else if(node.data < val){
+            lookupRecursively(node.rightNode, node)
+        }
+    }
+
+    lookupRecursively(this.root, null)
+
+    return response
+}
+
+BinaryTree.prototype.remove = function (data){
+    
+}
+
 const bt = new BinaryTree()
 bt.insert(10)
-bt.insert(12)
+bt.insert(9)
 bt.insert(13)
 console.log(bt)
-/* function insertRight(oldNode, node){
-    if(oldNode === null){
-        oldNode.data = node
-    }else if(oldNode.data < node.data){
-        insertLeft(oldNode.leftNode, newNode)
-    }else {
-        insertRight(oldNode.rightNode, newNode)
-    }
-} */
+console.log(bt.lookup(9))
